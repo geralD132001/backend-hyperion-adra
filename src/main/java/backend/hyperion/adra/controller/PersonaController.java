@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,8 @@ public class PersonaController {
 
 	@Autowired	
 	private PersonaService personaService;
-
+	
+	@Secured({"ROLE_ADMIN"})
 	@ApiOperation(value = "Lista de Personas")
 	@GetMapping
 	public ResponseEntity<?> findAll(@RequestParam(value = "query", required = false, defaultValue = "") String query,
@@ -56,8 +58,11 @@ public class PersonaController {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 	}
-
+	
+	
+	
 	@ApiOperation(value = "Crea una nueva Persona")
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Persona persona, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
@@ -69,7 +74,9 @@ public class PersonaController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	
 	@ApiOperation(value = "Actualiza datos de una persona")
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/{idPersona}")
 	public ResponseEntity<?> update(@PathVariable(value = "idPersona") Long idPersona, @RequestBody Persona persona,
 			HttpServletRequest request) {
@@ -92,6 +99,7 @@ public class PersonaController {
 	}
 
 	@ApiOperation(value = "Obtiene Datos la persona")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping(value = "/{idPersona}")
 	public ResponseEntity<?> findById(@PathVariable(value = "idPersona") Long idPersona, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
@@ -108,6 +116,7 @@ public class PersonaController {
 	}
 
 	@ApiOperation(value = "Elimina una Persona")
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping(value = "/{idPersona}")
 	public ResponseEntity<?> delete(@PathVariable(value = "idPersona") Long idPersona, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
