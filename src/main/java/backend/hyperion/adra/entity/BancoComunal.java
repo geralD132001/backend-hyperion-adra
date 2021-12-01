@@ -27,7 +27,6 @@ public class BancoComunal implements Serializable {
 	private String estadoBanco;
 
 
-
 	private static final long serialVersionUID = 1L;
 
 	public Long getIdBanco() {

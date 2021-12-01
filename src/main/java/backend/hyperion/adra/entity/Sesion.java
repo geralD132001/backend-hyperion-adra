@@ -25,10 +25,10 @@ public class Sesion implements Serializable {
 	private Long idSesion;
 
 	@Column(name = "desc_tema")
-	private String DescripcionTema;
+	private String descripcionTema;
 
 	@Column(name = "desc_secion")
-	private String DescripcionSecion;
+	private String descripcionSecion;
 
 	@Column(name = "fech_inicio")
 	private Date fechaInicio;
@@ -55,26 +55,17 @@ public class Sesion implements Serializable {
 
 
 	public String getDescripcionTema() {
-		return DescripcionTema;
+		return descripcionTema;
 	}
 
 
 
-	public void setDescripcionTema(String descripcionTema) {
-		DescripcionTema = descripcionTema;
-	}
 
 
 
-	public String getDescripcionSecion() {
-		return DescripcionSecion;
-	}
 
 
 
-	public void setDescripcionSecion(String descripcionSecion) {
-		DescripcionSecion = descripcionSecion;
-	}
 
 
 
@@ -86,6 +77,24 @@ public class Sesion implements Serializable {
 
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+
+
+
+	public String getDescripcionSecion() {
+		return descripcionSecion;
+	}
+
+
+
+	public void setDescripcionSecion(String descripcionSecion) {
+		this.descripcionSecion = descripcionSecion;
+	}
+
+
+
+	public void setDescripcionTema(String descripcionTema) {
+		this.descripcionTema = descripcionTema;
 	}
 
 

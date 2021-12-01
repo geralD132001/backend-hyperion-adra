@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import backend.hyperion.adra.servicio.SesionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("api/sesion")
 @Api(value = "Microservicios de Gestion de Sesiones", description = "Microservicio de Sesion")
@@ -81,7 +83,7 @@ public class SesionController {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}
 		try {
-			sesionService.save(data);
+			sesionService.save(sesion);
 			result.put("success", true);
 			result.put("message", "Se ha actualizado los datos de la Sesion!");
 			result.put("data", sesion);
