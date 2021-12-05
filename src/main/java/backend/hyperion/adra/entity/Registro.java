@@ -45,8 +45,20 @@ public class Registro implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<RecursoVisto> recursovisto;
-	
-	
+
+           @ManyToOne
+    @JoinColumn(name = "id_evento")
+    private Evento evento;
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+        
+           
 	public Long getIdRegistro() {
 		return idRegistro;
 	}
