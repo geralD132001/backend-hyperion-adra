@@ -12,10 +12,13 @@ import backend.hyperion.adra.entity.Recurso;
 
 public interface RecursoRepository extends CrudRepository<Recurso, Long> {
 	
-    @Query("SELECT e FROM Recurso e WHERE (nombrePersona like %:query%)")
+    @Query("SELECT e FROM Recurso e WHERE (nombreRecurso like %:query%)")
     List<Recurso> findAll(String query, Sort sort);
 
-    @Query("SELECT e FROM Recurso e WHERE (nombrePersona like %:query%)")
+    @Query("SELECT e FROM Recurso e WHERE (nombreRecurso like %:query%)")
     Page<Recurso> findAllParams(String query, Pageable pageable);
+    
+    @Query("SELECT e FROM Recurso e WHERE sesion.idSesion = :idSesion")
+    List<Recurso> findBySesion(Long idSesion);
 
 }

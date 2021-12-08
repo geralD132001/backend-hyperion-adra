@@ -1,12 +1,14 @@
 package backend.hyperion.adra.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,8 @@ import backend.hyperion.adra.servicio.RecursoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("api/recurso")
 @Api(value = "Microservicios de Gestion de Recursos ", description = "Microservicio de Recurso")
@@ -130,6 +134,22 @@ public class RecursoController {
 		} catch (Exception ex) {
 			return new ResponseEntity<>(new Exception(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@ApiOperation(value = "Obtiene datos del Recurso por ID de la Sesión")
+	@GetMapping(value = "/sesion/{idSesion}")
+	public ResponseEntity<?> findByIdSesion(@PathVariable(value = "idSesion") Long idSesion, HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<>();
+		List<Recurso> data = recursoService.findBySesion(idSesion);
+		if (data == null) {
+			result.put("success", false);
+			result.put("message", "No existe Recurso con Id: " + idSesion);
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		}
+		result.put("success", true);
+		result.put("message", "Se ha encontrado el registro.");
+		result.put("data", data);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 }

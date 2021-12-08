@@ -11,48 +11,49 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import backend.hyperion.adra.entity.Registro;
-import backend.hyperion.adra.repository.RegistroRepository;
-import backend.hyperion.adra.servicio.RegistroService;
+import backend.hyperion.adra.entity.Capacitacion;
+import backend.hyperion.adra.entity.Evento;
+import backend.hyperion.adra.repository.EventoRepository;
+import backend.hyperion.adra.servicio.EventoService;
 
 @Service
-public class RegistroServiceImpl implements RegistroService {
+public class EventoServiceImpl implements EventoService {
 
 	@Autowired
-	private RegistroRepository registroRepository;
+	private EventoRepository eventoRepository;
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Registro> findAll() {
-		return (List<Registro>) registroRepository.findAll();
+	public List<Evento> findAll() {
+		return (List<Evento>) eventoRepository.findAll();
 	}
 
 	@Override
-	public Registro findById(Long id) {
-		return registroRepository.findById(id).orElse(null);
+	public Evento findById(Long id) {
+		return eventoRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public Registro save(Registro registro) {
-		return registroRepository.save(registro);
+	public Evento save(Evento evento) {
+		return eventoRepository.save(evento);
 	}
 
 	@Override
-	public void delete(Registro registro) {
-		registroRepository.delete(registro);
+	public void delete(Evento evento) {
+		eventoRepository.delete(evento);
 	}
 
 	@Override
-	public List<Registro> findAll(String query, String sortBy) {
+	public List<Evento> findAll(String query, String sortBy) {
 		Sort sort;
-		if (!sortBy.equals("")) {/* sortBy = COLUMNA|ASC O DESC idRegistro|ASC */
+		if (!sortBy.equals("")) {/* sortBy = COLUMNA|ASC O DESC idEvento|ASC */
 			String sortColumn = sortBy.split("\\|")[0];
 			String sortDirection = sortBy.split("\\|")[1].toUpperCase();
 			sort = Sort.by(sortDirection.equals("DESC") ? Direction.DESC : Direction.ASC, sortColumn);
 		} else {
-			sort = Sort.by(Direction.ASC, "idRegistro");
+			sort = Sort.by(Direction.ASC, "idEvento");
 		}
-		return registroRepository.findAll("%" + query.toUpperCase() + "%", sort);
+		return eventoRepository.findAll("%" + query.toUpperCase() + "%", sort);
 	}
 
 	@Override
@@ -66,16 +67,16 @@ public class RegistroServiceImpl implements RegistroService {
 			Sort sort = Sort.by(sortDirection.equals("DESC") ? Direction.DESC : Direction.ASC, sortColumn);
 			pageable = PageRequest.of(page - 1, limit, sort);
 		} else {
-			Sort sort = Sort.by(Direction.ASC, "idRegistro");
+			Sort sort = Sort.by(Direction.ASC, "idEvento");
 			pageable = PageRequest.of(page - 1, limit, sort);
 		}
 
-		Page<Registro> data = registroRepository.findAllParams("%" + query.toUpperCase() + "%", pageable);
+		Page<Evento> data = eventoRepository.findAllParams("%" + query.toUpperCase() + "%", pageable);
 
 		if (!data.getContent().isEmpty()) {
 			result.put("items", data.getContent());
 		} else {
-			result.put("items", new ArrayList<Registro>());
+			result.put("items", new ArrayList<Capacitacion>());
 		}
 		result.put("totalPage", data.getTotalPages());
 		result.put("totalRows", data.getNumberOfElements());

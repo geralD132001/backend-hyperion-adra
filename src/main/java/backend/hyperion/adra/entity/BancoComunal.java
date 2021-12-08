@@ -26,9 +26,6 @@ public class BancoComunal implements Serializable {
 	@Column(name = "esta_banco")
 	private String estadoBanco;
 
-
-	private static final long serialVersionUID = 1L;
-
 	public Long getIdBanco() {
 		return idBanco;
 	}
@@ -61,7 +58,6 @@ public class BancoComunal implements Serializable {
 		this.estadoBanco = estadoBanco;
 	}
 
-
-	
+	private static final long serialVersionUID = 1L;
 
 }

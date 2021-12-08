@@ -6,8 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pedidosOracion")
@@ -24,8 +27,18 @@ public class PedidoOracion implements Serializable {
 	@Column(name = "esta_oracion")
 	private String estadoOracion;
 
+	@ManyToOne
+	@JoinColumn(name = "id_persona")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Persona persona;
 
-	private static final long serialVersionUID = 1L;
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 	public Long getIdPedido() {
 		return idPedido;
@@ -51,6 +64,6 @@ public class PedidoOracion implements Serializable {
 		this.estadoOracion = estadoOracion;
 	}
 
-
+	private static final long serialVersionUID = 1L;
 
 }

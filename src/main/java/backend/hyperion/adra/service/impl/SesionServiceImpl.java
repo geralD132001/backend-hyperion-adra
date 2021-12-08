@@ -83,4 +83,10 @@ public class SesionServiceImpl implements SesionService {
         return result;
 	}
 
+	@Override
+	public List<Sesion> findByCapacitacion(Long idCapacitacion) {
+		return sesionRepository.findByCapacitacion(idCapacitacion);
+
+	}
+
 }

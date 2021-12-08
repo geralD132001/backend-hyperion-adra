@@ -1,18 +1,11 @@
 package backend.hyperion.adra.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -41,18 +34,11 @@ public class Persona implements Serializable {
 	private String numeroCelular;
 
 	@Column(name = "codi_identidad")
-	private Integer cod_identidad;
+	private String cod_identidad;
 
 	@Column(name = "ti_nacionalidad")
 	private String tiNacionalidad;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_socia")
-	private Socia socia;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<PedidoOracion> pedidosOracion;
-	
     private boolean estado;
 
 	public boolean isEstado() {
@@ -63,17 +49,6 @@ public class Persona implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<PedidoOracion> getPedidosOracion() {
-		return pedidosOracion;
-	}
-
-	public void setPedidosOracion(List<PedidoOracion> pedidosOracion) {
-		this.pedidosOracion = pedidosOracion;
-	}
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "usua_id")
-	private Usuario usuario;
 
 	private static final long serialVersionUID = 1L;
 
@@ -125,13 +100,6 @@ public class Persona implements Serializable {
 		this.numeroCelular = numeroCelular;
 	}
 
-	public Integer getCod_identidad() {
-		return cod_identidad;
-	}
-
-	public void setCod_identidad(Integer cod_identidad) {
-		this.cod_identidad = cod_identidad;
-	}
 
 	public String getTiNacionalidad() {
 		return tiNacionalidad;
@@ -141,22 +109,13 @@ public class Persona implements Serializable {
 		this.tiNacionalidad = tiNacionalidad;
 	}
 
-	public Socia getSocia() {
-		return socia;
+	public String getCod_identidad() {
+		return cod_identidad;
 	}
 
-	public void setSocia(Socia socia) {
-		this.socia = socia;
+	public void setCod_identidad(String cod_identidad) {
+		this.cod_identidad = cod_identidad;
 	}
 
-
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 }

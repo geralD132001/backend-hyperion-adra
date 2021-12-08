@@ -3,15 +3,13 @@ package backend.hyperion.adra.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "capacitaciones")
@@ -28,16 +26,13 @@ public class Capacitacion implements Serializable {
 	@Column(name = "desc_capacitacion")
 	private String descripcionCapacitacion;
 
-	@Column(name = "tipo_capacitacion")
-	private String tipoCapacitacion;
-
+	@Column(name = "cant_recurso")
+	private Integer cantRecurso;
 
 	@Column(name = "esta_capacitacion")
 	private String estadoCapacitacion;
 
 
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private List<Sesion> sesion;
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,13 +60,6 @@ public class Capacitacion implements Serializable {
 		this.descripcionCapacitacion = descripcionCapacitacion;
 	}
 
-	public String getTipoCapacitacion() {
-		return tipoCapacitacion;
-	}
-
-	public void setTipoCapacitacion(String tipoCapacitacion) {
-		this.tipoCapacitacion = tipoCapacitacion;
-	}
 
 
 	public String getEstadoCapacitacion() {
@@ -82,14 +70,16 @@ public class Capacitacion implements Serializable {
 		this.estadoCapacitacion = estadoCapacitacion;
 	}
 
-
-	public List<Sesion> getSesion() {
-		return sesion;
+	public Integer getCantRecurso() {
+		return cantRecurso;
 	}
 
-	public void setSesion(List<Sesion> sesion) {
-		this.sesion = sesion;
+	public void setCantRecurso(Integer cantRecurso) {
+		this.cantRecurso = cantRecurso;
 	}
-	
+
+
+
+
 
 }

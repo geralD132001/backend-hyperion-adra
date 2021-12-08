@@ -83,5 +83,10 @@ public class RecursoServiceImpl implements RecursoService {
 		result.put("limit", limit);
 		return result;
 	}
+	
+	@Override
+	public List<Recurso> findBySesion(Long idSesion) {
+		return recursoRepository.findBySesion(idSesion);
+	}
 
 }

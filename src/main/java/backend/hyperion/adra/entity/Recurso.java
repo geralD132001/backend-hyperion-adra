@@ -2,27 +2,19 @@ package backend.hyperion.adra.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name = "recursos")
 public class Recurso implements Serializable {
 
-   
 	@Id
 	@Column(name = "id_recurso")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,28 +22,43 @@ public class Recurso implements Serializable {
 
 	@Column(name = "nomb_recursi")
 	private String nombreRecurso;
-	
+
 	@Column(name = "fi_url")
 	private String url;
-	
+
 	@Column(name = "fech_inicioR")
-    private Date fechaInicioRecurso;
-	
+	private Date fechaInicioRecurso;
+
 	@Column(name = "fech_finR")
-    private Date fechaFinRecurso;
+	private Date fechaFinRecurso;
 	
+	@Column(name = "esta_recurso")
+	private String estadoRecurso;
 
-    
+	@ManyToOne
+	@JoinColumn(name = "id_sesion")
+	private Sesion sesion;
 
-	
-    @ManyToOne
-    @JoinColumn(name = "id_tiporecurso")
-    private TipoRecurso tiporecurso;
-    
-	@OneToMany(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
-	private List<Pregunta> pregunta;
-	
-	private static final long serialVersionUID = 1L;
+	@ManyToOne
+	@JoinColumn(name = "id_tiporecurso")
+	private TipoRecurso tiporecurso;
+
+	public String getEstadoRecurso() {
+		return estadoRecurso;
+	}
+
+	public void setEstadoRecurso(String estadoRecurso) {
+		this.estadoRecurso = estadoRecurso;
+	}
+
+	public Sesion getSesion() {
+		return sesion;
+	}
+
+	public void setSesion(Sesion sesion) {
+		this.sesion = sesion;
+	}
+
 
 	public Long getIdRecurso() {
 		return idRecurso;
@@ -93,10 +100,6 @@ public class Recurso implements Serializable {
 		this.fechaFinRecurso = fechaFinRecurso;
 	}
 
-
-
-
-
 	public TipoRecurso getTiporecurso() {
 		return tiporecurso;
 	}
@@ -105,14 +108,6 @@ public class Recurso implements Serializable {
 		this.tiporecurso = tiporecurso;
 	}
 
-	public List<Pregunta> getPregunta() {
-		return pregunta;
-	}
-
-	public void setPregunta(List<Pregunta> pregunta) {
-		this.pregunta = pregunta;
-	}
-	
-	
+	private static final long serialVersionUID = 1L;
 
 }

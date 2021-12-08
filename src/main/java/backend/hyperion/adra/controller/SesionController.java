@@ -1,6 +1,8 @@
 package backend.hyperion.adra.controller;
 
 import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import backend.hyperion.adra.entity.Recurso;
 import backend.hyperion.adra.entity.Sesion;
 import backend.hyperion.adra.servicio.SesionService;
 import io.swagger.annotations.Api;
@@ -28,6 +32,8 @@ public class SesionController {
 
 	@Autowired
 	private SesionService sesionService;
+	
+	
 
 	@ApiOperation(value = "Lista de todas las Sesiones")
 	@GetMapping
@@ -58,7 +64,42 @@ public class SesionController {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 	}
+	
+	@ApiOperation(value = "Obtiene datos del Sesion por ID de la Capacitacion")
+	@GetMapping(value = "/capacitacion/{idCapacitacion}")
+	public ResponseEntity<?> findByIdSesion(@PathVariable(value = "idCapacitacion") Long idCapacitacion, HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<>();
+		List<Sesion> data = sesionService.findByCapacitacion(idCapacitacion);
+		if (data == null) {
+			result.put("success", false);
+			result.put("message", "No existe Recurso con Id: " + idCapacitacion);
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		}
+		result.put("success", true);
+		result.put("message", "Se ha encontrado el registro.");
+		result.put("data", data);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	/*@ApiOperation(value = "Lista de todas las Sesiones")
+	@GetMapping("/capacitacion/{idCapacitacion}")
+	public ResponseEntity<?> findSesionByCapacitacion(@PathVariable(value = "idCapacitacion") Long idCapacitacion, HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("success", true);
+		result.put("message", "Consulta correcta");
+		
+		List<Sesion> sesiones = sesionService.findAll();
+		
+		Integer i=0;
+		for (Sesion sesion: sesiones){
+			sesiones.get(i).setRecursos(recursoService.findBySesion(sesion.getIdSesion()));
+			i++;
+		}
 
+		result.put("data", sesiones);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+    */
 	@ApiOperation(value = "Registra una nueva Sesion")
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Sesion sesion, HttpServletRequest request) {
