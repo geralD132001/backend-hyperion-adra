@@ -20,8 +20,6 @@ public class InfoAdicionalToken implements TokenEnhancer {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	
-	
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
     

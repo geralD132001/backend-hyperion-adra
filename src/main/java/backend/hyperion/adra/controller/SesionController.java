@@ -1,5 +1,6 @@
 package backend.hyperion.adra.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import backend.hyperion.adra.entity.Recurso;
 import backend.hyperion.adra.entity.Sesion;
+import backend.hyperion.adra.servicio.RecursoService;
 import backend.hyperion.adra.servicio.SesionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +35,8 @@ public class SesionController {
 	@Autowired
 	private SesionService sesionService;
 	
+	@Autowired
+	private RecursoService recursoService;	
 	
 
 	@ApiOperation(value = "Lista de todas las Sesiones")
@@ -66,7 +70,7 @@ public class SesionController {
 	}
 	
 	@ApiOperation(value = "Obtiene datos del Sesion por ID de la Capacitacion")
-	@GetMapping(value = "/capacitacion/{idCapacitacion}")
+	@GetMapping(value = "/capacitacionn/{idCapacitacion}")
 	public ResponseEntity<?> findByIdSesion(@PathVariable(value = "idCapacitacion") Long idCapacitacion, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
 		List<Sesion> data = sesionService.findByCapacitacion(idCapacitacion);
@@ -81,25 +85,33 @@ public class SesionController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	/*@ApiOperation(value = "Lista de todas las Sesiones")
-	@GetMapping("/capacitacion/{idCapacitacion}")
+	@ApiOperation(value = "Lista de todas las Sesiones")
+	@GetMapping(value = "/capacitacion/{idCapacitacion}")
 	public ResponseEntity<?> findSesionByCapacitacion(@PathVariable(value = "idCapacitacion") Long idCapacitacion, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("success", true);
 		result.put("message", "Consulta correcta");
 		
-		List<Sesion> sesiones = sesionService.findAll();
+		List<Object> sesionesNew = new ArrayList<>();
 		
-		Integer i=0;
-		for (Sesion sesion: sesiones){
-			sesiones.get(i).setRecursos(recursoService.findBySesion(sesion.getIdSesion()));
-			i++;
+		List<Sesion> sesiones = sesionService.findByCapacitacion(idCapacitacion);
+		
+		
+		for (int i = 0; i<sesiones.size(); i++){
+			Sesion s = new Sesion(new ArrayList<Recurso>());
+			s.setIdSesion(sesiones.get(i).getIdSesion());
+			s.setDescripcionTema(sesiones.get(i).getDescripcionTema());
+			s.setDescripcionSecion(sesiones.get(i).getDescripcionSecion());
+			s.setFechaInicio(sesiones.get(i).getFechaInicio());
+			s.setFechaFin(sesiones.get(i).getFechaFin());
+			s.setRecursos(recursoService.findBySesion(sesiones.get(i).getIdSesion()));
+			sesionesNew.add(s);
 		}
 
-		result.put("data", sesiones);
+		result.put("data", sesionesNew);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-    */
+    
 	@ApiOperation(value = "Registra una nueva Sesion")
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Sesion sesion, HttpServletRequest request) {

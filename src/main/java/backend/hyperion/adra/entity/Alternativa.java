@@ -31,7 +31,6 @@ public class Alternativa implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_pregunta")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Pregunta pregunta;
 
 
@@ -60,6 +59,7 @@ public class Alternativa implements Serializable {
 	}
 
 
+
 	public Pregunta getPregunta() {
 		return pregunta;
 	}
@@ -67,6 +67,7 @@ public class Alternativa implements Serializable {
 	public void setPregunta(Pregunta pregunta) {
 		this.pregunta = pregunta;
 	}
+
 
 
 	private static final long serialVersionUID = 1L;

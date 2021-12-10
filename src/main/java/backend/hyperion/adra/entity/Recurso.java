@@ -31,7 +31,7 @@ public class Recurso implements Serializable {
 
 	@Column(name = "fech_finR")
 	private Date fechaFinRecurso;
-	
+
 	@Column(name = "esta_recurso")
 	private String estadoRecurso;
 
@@ -42,6 +42,16 @@ public class Recurso implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_tiporecurso")
 	private TipoRecurso tiporecurso;
+
+	public Recurso(String name, String urls) {
+
+		this.name = name;
+		this.url = urls;
+	}
+
+	private String name;
+
+	private String urls;
 
 	public String getEstadoRecurso() {
 		return estadoRecurso;
@@ -58,7 +68,6 @@ public class Recurso implements Serializable {
 	public void setSesion(Sesion sesion) {
 		this.sesion = sesion;
 	}
-
 
 	public Long getIdRecurso() {
 		return idRecurso;
@@ -106,6 +115,22 @@ public class Recurso implements Serializable {
 
 	public void setTiporecurso(TipoRecurso tiporecurso) {
 		this.tiporecurso = tiporecurso;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrls() {
+		return urls;
+	}
+
+	public void setUrls(String urls) {
+		this.urls = urls;
 	}
 
 	private static final long serialVersionUID = 1L;

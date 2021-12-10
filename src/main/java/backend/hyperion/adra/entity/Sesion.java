@@ -11,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "sesiones")
@@ -41,7 +43,17 @@ public class Sesion implements Serializable {
 	@JoinColumn(name = "id_capacitacion")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Capacitacion capacitacion;
+	
+	@Transient
+    private List<Recurso> recursos;
 
+
+	public Sesion() {
+	}
+	
+	public Sesion(List<Recurso> recursos) {
+		this.recursos = recursos;
+	}
 
 	public Long getIdSesion() {
 		return idSesion;
@@ -89,6 +101,15 @@ public class Sesion implements Serializable {
 
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+
+
+	public List<Recurso> getRecursos() {
+		return recursos;
+	}
+
+	public void setRecursos(List<Recurso> recursos) {
+		this.recursos = recursos;
 	}
 
 
