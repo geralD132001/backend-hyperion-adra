@@ -43,15 +43,17 @@ public class Recurso implements Serializable {
 	@JoinColumn(name = "id_tiporecurso")
 	private TipoRecurso tiporecurso;
 
-	public Recurso(String name, String urls) {
+    private String name;
 
-		this.name = name;
-		this.url = urls;
-	}
+    
+    public Recurso() {
+    }
 
-	private String name;
+    public Recurso(String name, String url) {
+        this.name = name;
+        this.url = url;
 
-	private String urls;
+    }
 
 	public String getEstadoRecurso() {
 		return estadoRecurso;
@@ -125,13 +127,10 @@ public class Recurso implements Serializable {
 		this.name = name;
 	}
 
-	public String getUrls() {
-		return urls;
-	}
 
-	public void setUrls(String urls) {
-		this.urls = urls;
-	}
+
+
+
 
 	private static final long serialVersionUID = 1L;
 

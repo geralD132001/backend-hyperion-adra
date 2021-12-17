@@ -84,4 +84,12 @@ public class SociaServiceImpl implements SociaService {
 		return result;
 	}
 
+
+
+
+	@Override
+	public List<Socia> findByBanco(Long idBanco) {
+		return sociaRepository.findByBanco(idBanco);
+	}
+
 }

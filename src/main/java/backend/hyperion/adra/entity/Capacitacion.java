@@ -32,7 +32,15 @@ public class Capacitacion implements Serializable {
 	@Column(name = "esta_capacitacion")
 	private String estadoCapacitacion;
 
+    public Capacitacion() {
+    }
 
+    public Capacitacion(String nombreCapacitacion, String descripcionCapacitacion, Integer cantRecurso, String estadoCapacitacion) {
+        this.nombreCapacitacion = nombreCapacitacion;
+        this.descripcionCapacitacion = descripcionCapacitacion;
+        this.cantRecurso = cantRecurso;
+        this.estadoCapacitacion = estadoCapacitacion;
+    }
 
 	private static final long serialVersionUID = 1L;
 

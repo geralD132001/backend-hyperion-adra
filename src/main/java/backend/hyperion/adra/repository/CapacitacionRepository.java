@@ -18,5 +18,9 @@ public interface CapacitacionRepository extends CrudRepository<Capacitacion, Lon
 
     @Query("SELECT e FROM Capacitacion e WHERE (nombreCapacitacion like %:query% or descripcionCapacitacion like %:query%)")
     Page<Capacitacion> findAllParams(String query, Pageable pageable);
+   
 
+    
+  
+    
 }

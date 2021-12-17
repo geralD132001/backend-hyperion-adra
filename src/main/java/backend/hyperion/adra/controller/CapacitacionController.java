@@ -1,6 +1,8 @@
 package backend.hyperion.adra.controller;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import backend.hyperion.adra.entity.Capacitacion;
+import backend.hyperion.adra.service.impl.CapacitacionServiceProcedure;
 import backend.hyperion.adra.servicio.CapacitacionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +29,9 @@ public class CapacitacionController {
 
 	@Autowired
 	private CapacitacionService capacitacionService;
+	
+	@Autowired
+	private CapacitacionServiceProcedure capacitacionServicepro;
 
 	@ApiOperation(value = "Lista de todas las Capacitaciones registradas")
 	@GetMapping
@@ -129,5 +135,31 @@ public class CapacitacionController {
 			return new ResponseEntity<>(new Exception(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	   @GetMapping("/lista")
+	    public ResponseEntity<List<Capacitacion>> lista(){
+	        List<Capacitacion> lista = capacitacionServicepro.lista();
+	        return new ResponseEntity(lista, HttpStatus.OK);
+	    }
+	   
+	    @PostMapping("/nuevo")
+	    public ResponseEntity<?> save(@RequestBody Capacitacion capacitacion){
+	    	capacitacionServicepro.saveProcedure(capacitacion);
+	        return new ResponseEntity("coche guardado", HttpStatus.CREATED);
+	    }
+	   
+	   
+	    @GetMapping("/verid/{idCapacitacion}")
+	    public ResponseEntity<Capacitacion> verId(@PathVariable("idCapacitacion") Long idCapacitacion){
+	        Optional<Capacitacion> capacitacion = capacitacionServicepro.getById(idCapacitacion);
+	        return new ResponseEntity(capacitacion, HttpStatus.OK);
+	    }
+	    
+	    @DeleteMapping("/borrar/{idCapacitacion}")
+	    public ResponseEntity<?> borrar(@PathVariable("idCapacitacion")Long idCapacitacion){
+	    	capacitacionServicepro.borrarProcedure(idCapacitacion);
+	        return new ResponseEntity("coche eliminado", HttpStatus.OK);
+	    }
+
 
 }

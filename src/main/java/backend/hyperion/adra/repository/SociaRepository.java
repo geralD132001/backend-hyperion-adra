@@ -17,4 +17,8 @@ public interface SociaRepository extends CrudRepository<Socia, Long> {
 
 	@Query("SELECT e FROM Socia e WHERE (estadoSocia like %:query%)")
 	Page<Socia> findAllParams(String query, Pageable pageable);
+	
+    @Query("SELECT e FROM Socia e WHERE bancoComunal.idBanco = :idBanco")
+    List<Socia> findByBanco(Long idBanco);
+
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import backend.hyperion.adra.entity.Recurso;
 import backend.hyperion.adra.entity.Sesion;
+import backend.hyperion.adra.entity.Socia;
 import backend.hyperion.adra.servicio.RecursoService;
 import backend.hyperion.adra.servicio.SesionService;
 import io.swagger.annotations.Api;

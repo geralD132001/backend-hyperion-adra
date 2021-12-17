@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import backend.hyperion.adra.servicio.FileService;
+import backend.hyperion.adra.servicio.RecursoService;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -22,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class BackendHyperionAdraApplication implements CommandLineRunner {
 
 	@Resource
-	FileService fileService;
+	RecursoService recursoService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -40,8 +39,8 @@ public class BackendHyperionAdraApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		fileService.deleteAll();
-		fileService.init();
+		recursoService.deleteAll();
+		recursoService.init();
 		
 		String password = "12345";
 

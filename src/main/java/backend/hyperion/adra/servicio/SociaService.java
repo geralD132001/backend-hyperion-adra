@@ -17,5 +17,7 @@ public interface SociaService {
     public List<Socia> findAll(String query, String sortBy);
 
     public HashMap<String, Object> findAll(String query, int page, int limit, String sortBy);
+    
+    public List<Socia> findByBanco(Long idBanco);
 
 }

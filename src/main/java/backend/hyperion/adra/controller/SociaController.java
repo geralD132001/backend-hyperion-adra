@@ -1,6 +1,7 @@
 package backend.hyperion.adra.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import backend.hyperion.adra.entity.Socia;
 import backend.hyperion.adra.servicio.SociaService;
@@ -136,5 +138,23 @@ public class SociaController {
 			return new ResponseEntity<>(new Exception(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@ApiOperation(value = "Obten datos de la socia con el ID del bancoComunal")
+	@GetMapping(value = "/bancoComunal/{idBanco}")
+	public ResponseEntity<?> findByIdBanco(@PathVariable(value = "idBanco") Long idBanco,
+			HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<>();
+		List<Socia> data = sociaService.findByBanco(idBanco);
+		if (data == null) {
+			result.put("success", false);
+			result.put("message", "No existe Socia con Id: " + idBanco);
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		}
+		result.put("success", true);
+		result.put("message", "Se ha encontrado el registro.");
+		result.put("data", data);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
 
 }
