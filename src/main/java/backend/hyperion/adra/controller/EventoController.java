@@ -1,5 +1,9 @@
 package backend.hyperion.adra.controller;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("api/evento")
+<<<<<<< HEAD
 @Api(value = "Microservicios de Gestion de Eventos", description = "Microservicio de Evento")
 public class EventoController {
 	
@@ -28,6 +33,15 @@ public class EventoController {
 	private EventoService eventoService;
 
 	@ApiOperation(value = "Lista de todos los eventos registrados")
+=======
+@Api(value = "Microservicios de Gestion de Evento", description = "Microservicio de Evento")
+public class EventoController {
+
+	@Autowired
+	private EventoService eventoService;
+
+	@ApiOperation(value = "Lista de todas los Eventos registrados")
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 	@GetMapping
 	public ResponseEntity<?> findAll(@RequestParam(value = "query", required = false, defaultValue = "") String query,
 			@RequestParam(value = "page", required = false, defaultValue = "-1") int page,
@@ -57,7 +71,11 @@ public class EventoController {
 		}
 	}
 
+<<<<<<< HEAD
 	@ApiOperation(value = "Registra un evento nuevo")
+=======
+	@ApiOperation(value = "Registra un Evento nuevo")
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Evento evento, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
@@ -69,6 +87,7 @@ public class EventoController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+<<<<<<< HEAD
 	@ApiOperation(value = "Actualiza datos de un evento")
 	@PutMapping("/{idEvento}")
 	public ResponseEntity<?> update(@PathVariable(value = "idEvento") Long idEvento, @RequestBody Evento evento,
@@ -78,12 +97,27 @@ public class EventoController {
 		if (data == null) {
 			result.put("success", false);
 			result.put("message", "No existe Evento con Id: " + idEvento);
+=======
+	@ApiOperation(value = "Actualiza datos de un Evento")
+	@PutMapping("/{idEvento}")
+	public ResponseEntity<?> update(@PathVariable(value = "idEvento") Long idCapacitacion, @RequestBody Evento evento,
+			HttpServletRequest request) {
+		HashMap<String, Object> result = new HashMap<>();
+		Evento data = eventoService.findById(idCapacitacion);
+		if (data == null) {
+			result.put("success", false);
+			result.put("message", "No existe Capacitacion con Id: " + idCapacitacion);
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}
 		try {
 			eventoService.save(evento);
 			result.put("success", true);
+<<<<<<< HEAD
 			result.put("message", "Se ha actualizado los datos del evento.");
+=======
+			result.put("message", "Se ha actualizado los datos de la Capacitacion.");
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 			result.put("data", evento);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (Exception ex) {
@@ -91,7 +125,11 @@ public class EventoController {
 		}
 	}
 
+<<<<<<< HEAD
 	@ApiOperation(value = "Obten los datos de algún evento")
+=======
+	@ApiOperation(value = "Obten los datos de algun Evento")
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 	@GetMapping(value = "/{idEvento}")
 	public ResponseEntity<?> findById(@PathVariable(value = "idEvento") Long idEvento, HttpServletRequest request) {
 		HashMap<String, Object> result = new HashMap<>();
@@ -118,6 +156,10 @@ public class EventoController {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}
 		try {
+<<<<<<< HEAD
+=======
+			// data.setEstado(false);
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 			eventoService.delete(data);
 			result.put("success", true);
 			result.put("message", "Se ha eliminado los datos del registro.");
@@ -128,4 +170,8 @@ public class EventoController {
 			return new ResponseEntity<>(new Exception(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> ee18319b15a132d1352f3e58253ac3e073f10e88
 }
